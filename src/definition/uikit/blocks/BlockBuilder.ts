@@ -1,10 +1,11 @@
 import * as uuid from 'uuid/v1';
 import { Omit } from '../../../lib/utils';
-import { BlockType, IActionsBlock, IBlock, IConditionalBlock, IConditionalBlockFilters, IContextBlock, IImageBlock, IInputBlock, ISectionBlock } from './Blocks';
+import { BlockType, IActionsBlock, IBlock, ICodeEditorBlock, IConditionalBlock, IConditionalBlockFilters, IContextBlock, IImageBlock, IInputBlock, ISectionBlock } from './Blocks';
 import {
     BlockElementType,
     IBlockElement,
     IButtonElement,
+    ICodeEditorElement,
     IImageElement,
     IInputElement,
     IInteractiveElement,
@@ -25,6 +26,7 @@ type ImageBlockParam = BlockFunctionParameter<IImageBlock>;
 type ActionsBlockParam = BlockFunctionParameter<IActionsBlock>;
 type ContextBlockParam = BlockFunctionParameter<IContextBlock>;
 type InputBlockParam = BlockFunctionParameter<IInputBlock>;
+type CodeEditorBlockParam = BlockFunctionParameter<ICodeEditorBlock>
 
 type ButtonElementParam = ElementFunctionParameter<IButtonElement>;
 type ImageElementParam = ElementFunctionParameter<IImageElement>;
@@ -32,6 +34,7 @@ type OverflowMenuElementParam = ElementFunctionParameter<IOverflowMenuElement>;
 type PlainTextInputElementParam = ElementFunctionParameter<IPlainTextInputElement>;
 type StaticSelectElementParam = ElementFunctionParameter<IStaticSelectElement>;
 type MultiStaticSelectElementParam = ElementFunctionParameter<IMultiStaticSelectElement>;
+type CodeEditorElementParam = ElementFunctionParameter<ICodeEditorElement>
 
 export class BlockBuilder {
     private readonly blocks: Array<IBlock>;
@@ -80,6 +83,12 @@ export class BlockBuilder {
         const render = innerBlocks instanceof BlockBuilder ? innerBlocks.getBlocks() : innerBlocks;
 
         this.addBlock({ type: BlockType.CONDITIONAL, render, when: condition } as IConditionalBlock);
+
+        return this;
+    }
+
+    public codeEditorBlock(block: CodeEditorBlockParam): BlockBuilder {
+        this.addBlock({ type: BlockType.CODE_EDITOR, ...block } as ICodeEditorBlock);
 
         return this;
     }
@@ -159,6 +168,13 @@ export class BlockBuilder {
         }
 
         return element;
+    }
+
+    public newCodeEditorElement(info: CodeEditorElementParam ): ICodeEditorElement {
+        return ({
+            type: BlockElementType.CODE_EDITOR,
+            ...info
+        }) as ICodeEditorElement;
     }
 
     private newSelectElement<T extends ISelectElement>(element: T): T {

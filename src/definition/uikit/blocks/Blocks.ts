@@ -9,6 +9,7 @@ export enum BlockType {
     CONTEXT = 'context',
     INPUT = 'input',
     CONDITIONAL = 'conditional',
+    CODE_EDITOR = 'code_editor',
 }
 
 export interface IBlock {
@@ -49,6 +50,12 @@ export interface IInputBlock extends IBlock {
     element: IInputElement;
     label: ITextObject;
     optional?: boolean;
+}
+
+export interface ICodeEditorBlock extends IBlock {
+    type: BlockType.CODE_EDITOR;
+    optional?: boolean;
+    initialValue?: string;
 }
 
 export enum ConditionalBlockFiltersEngine {

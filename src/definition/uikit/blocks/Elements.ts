@@ -7,6 +7,7 @@ export enum BlockElementType {
     PLAIN_TEXT_INPUT = 'plain_text_input',
     STATIC_SELECT = 'static_select',
     MULTI_STATIC_SELECT = 'multi_static_select',
+    CODE_EDITOR = 'code_editor'
 }
 
 export enum InputElementDispatchAction {
@@ -79,4 +80,9 @@ export interface IMultiStaticSelectElement extends ISelectElement {
     placeholder: ITextObject;
     options: Array<IOptionObject>;
     initialValue?: Array<string>;
+}
+
+export interface ICodeEditorElement extends IBlockElement {
+    type: BlockElementType.CODE_EDITOR;
+    initialValue?: string;
 }
