@@ -61,6 +61,7 @@ export interface IPlainTextInputElement extends IInputElement {
     type: BlockElementType.PLAIN_TEXT_INPUT;
     initialValue?: string;
     multiline?: boolean;
+    code?: boolean;
 }
 
 export interface ISelectElement extends IInputElement {
