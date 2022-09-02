@@ -7,7 +7,7 @@ export enum BlockElementType {
     PLAIN_TEXT_INPUT = 'plain_text_input',
     STATIC_SELECT = 'static_select',
     MULTI_STATIC_SELECT = 'multi_static_select',
-    CODE_EDITOR = 'code_editor'
+    CODE_EDITOR = 'code_editor',
 }
 
 export enum InputElementDispatchAction {

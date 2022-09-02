@@ -26,7 +26,7 @@ type ImageBlockParam = BlockFunctionParameter<IImageBlock>;
 type ActionsBlockParam = BlockFunctionParameter<IActionsBlock>;
 type ContextBlockParam = BlockFunctionParameter<IContextBlock>;
 type InputBlockParam = BlockFunctionParameter<IInputBlock>;
-type CodeEditorBlockParam = BlockFunctionParameter<ICodeEditorBlock>
+type CodeEditorBlockParam = BlockFunctionParameter<ICodeEditorBlock>;
 
 type ButtonElementParam = ElementFunctionParameter<IButtonElement>;
 type ImageElementParam = ElementFunctionParameter<IImageElement>;
@@ -34,7 +34,7 @@ type OverflowMenuElementParam = ElementFunctionParameter<IOverflowMenuElement>;
 type PlainTextInputElementParam = ElementFunctionParameter<IPlainTextInputElement>;
 type StaticSelectElementParam = ElementFunctionParameter<IStaticSelectElement>;
 type MultiStaticSelectElementParam = ElementFunctionParameter<IMultiStaticSelectElement>;
-type CodeEditorElementParam = ElementFunctionParameter<ICodeEditorElement>
+type CodeEditorElementParam = ElementFunctionParameter<ICodeEditorElement>;
 
 export class BlockBuilder {
     private readonly blocks: Array<IBlock>;
@@ -154,6 +154,13 @@ export class BlockBuilder {
         } as IMultiStaticSelectElement);
     }
 
+    public newCodeEditorElement(info: CodeEditorElementParam ): ICodeEditorElement {
+        return ({
+            type: BlockElementType.CODE_EDITOR,
+            ...info,
+        }) as ICodeEditorElement;
+    }
+
     private newInteractiveElement<T extends IInteractiveElement>(element: T): T {
         if (!element.actionId) {
             element.actionId = this.generateActionId();
@@ -168,13 +175,6 @@ export class BlockBuilder {
         }
 
         return element;
-    }
-
-    public newCodeEditorElement(info: CodeEditorElementParam ): ICodeEditorElement {
-        return ({
-            type: BlockElementType.CODE_EDITOR,
-            ...info
-        }) as ICodeEditorElement;
     }
 
     private newSelectElement<T extends ISelectElement>(element: T): T {
